@@ -23,17 +23,11 @@ export default buildConfig({
       collections: {
         media: {
           adapter: gcsAdapter({
-            options: {
-              credentials: {
-                type: "service_account",
-                private_key: process.env.GCS_PRIVATE_KEY,
-                client_email: process.env.GCS_CLIENT_EMAIL,
-                client_id: process.env.GCS_CLIENT_ID,
-              },
-            },
             bucket: process.env.GCS_BUCKET,
+            options: {
+              credentials: JSON.parse(process.env.GCS_CREDENTIALS || "{}"),
+            },
           }),
-          prefix: "media",
         },
       },
     }),
